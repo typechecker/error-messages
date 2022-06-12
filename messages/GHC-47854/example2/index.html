@@ -5,7 +5,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex">
-        <title>Identifier is a top-level binding, not a record selector — Haskell Error Index</title>
+        <title>Duplicate field export — Haskell Error Index</title>
         <link rel="stylesheet" href="../../../css/default.css" />
         <link rel="stylesheet" href="../../../css/highlight.css">
         <script src="../../../js/highlight.min.js"></script>
@@ -29,46 +29,39 @@
               
                 <a href="../../../messages/index.html">Messages</a>&nbsp;»
               
-                <a href="../../../messages/GHC-47535/index.html">Identifier is not a record selector [GHC-47535]</a>&nbsp;»
+                <a href="../../../messages/GHC-47854/index.html">Duplicate Exports [GHC-47854]</a>&nbsp;»
               
-              Identifier is a top-level binding, not a record selector
+              Duplicate field export
             </nav>
-            <h1>Identifier is a top-level binding, not a record selector</h1>
-            <p>The identifier <code>foo</code> is used as a record selector, but is never declared as such.
-Using <code>bar</code> fixes the error, since it is declared as a selector of the <code>Bar</code> record.</p>
+            <h1>Duplicate field export</h1>
+            <p>The module <code>Example</code> exports the symbol <code>answer</code> twice.
+In addition to the explicit entry in the export list it’s also exported by <code>Example(..)</code>.</p>
+<p>To avoid the warning, remove one of the duplicated mention.</p>
 <h2 id="error-message">Error Message</h2>
-<pre><code>NotARecordSelector.hs:6:13: error: [GHC-47535]
-    • ‘foo’ is not a record selector
-    • In the expression: x {foo = 1}
-      In an equation for ‘foo’: foo x = x {foo = 1}
+<pre><code>Main.hs:1:25: warning: [-Wduplicate-exports] [GHC-47854]
+    ‘answer’ is exported by ‘Example(..)’ and ‘answer’
   |
-6 | foo x = x { foo = 1 }
-  |             ^^^</code></pre>
+1 | module Example (answer, Example(..)) where
+  |                        ^^^^^^</code></pre>
 
 <table width="100%">
   
-  <tr><td colspan="2" class="filename"><pre>NotARecordSelector.hs</pre></td></tr>
+  <tr><td colspan="2" class="filename"><pre>Main.hs</pre></td></tr>
   <tr>
     <td width="50%" class="beforeafter">Before</td>
     <td width="50%" class="beforeafter">After</td>
   </tr>
   <tr>
     <td>
-      <pre><code class="language-haskell">module NotARecordSelector where
+      <pre><code class="language-haskell">module Example (answer, Example(..)) where
 
-newtype Bar = Bar { bar :: Int }
-
-foo :: Bar -> Bar
-foo x = x { foo = 1 }
+data Example = Example { answer :: Int }
 </code></pre>
     </td>
     <td>
-      <pre><code class="language-haskell">module NotARecordSelector where
+      <pre><code class="language-haskell">module Example (Example) where
 
-newtype Bar = Bar { bar :: Int }
-
-foo :: Bar -> Bar
-foo x = x { bar = 1 }
+data Example = Example { answer :: Int }
 </code></pre>
     </td>
   </tr>

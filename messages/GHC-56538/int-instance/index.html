@@ -5,7 +5,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex">
-        <title>Identifier is a top-level binding, not a record selector — Haskell Error Index</title>
+        <title>Typo: lower-case class name — Haskell Error Index</title>
         <link rel="stylesheet" href="../../../css/default.css" />
         <link rel="stylesheet" href="../../../css/highlight.css">
         <script src="../../../js/highlight.min.js"></script>
@@ -29,46 +29,43 @@
               
                 <a href="../../../messages/index.html">Messages</a>&nbsp;»
               
-                <a href="../../../messages/GHC-47535/index.html">Identifier is not a record selector [GHC-47535]</a>&nbsp;»
+                <a href="../../../messages/GHC-56538/index.html">Instance head is not headed by a class [GHC-56538]</a>&nbsp;»
               
-              Identifier is a top-level binding, not a record selector
+              Typo: lower-case class name
             </nav>
-            <h1>Identifier is a top-level binding, not a record selector</h1>
-            <p>The identifier <code>foo</code> is used as a record selector, but is never declared as such.
-Using <code>bar</code> fixes the error, since it is declared as a selector of the <code>Bar</code> record.</p>
-<h2 id="error-message">Error Message</h2>
-<pre><code>NotARecordSelector.hs:6:13: error: [GHC-47535]
-    • ‘foo’ is not a record selector
-    • In the expression: x {foo = 1}
-      In an equation for ‘foo’: foo x = x {foo = 1}
+            <h1>Typo: lower-case class name</h1>
+            <h2 id="error-message">Error Message</h2>
+<pre><code>IntInstance.hs:5:10: error: [GHC-56538]
+    • Instance head is not headed by a class: someClass Int
+    • In the instance declaration for ‘someClass Int’
   |
-6 | foo x = x { foo = 1 }
-  |             ^^^</code></pre>
+5 | instance someClass Int where
+  |          ^^^^^^^^^^^^^</code></pre>
+<h2 id="explanation">Explanation</h2>
+<p>This example shows a typo in which a type class name is written in lower case in an instance declaration. This results in GHC treating it as a type variable, and failing when it is not a concrete class.</p>
 
 <table width="100%">
   
-  <tr><td colspan="2" class="filename"><pre>NotARecordSelector.hs</pre></td></tr>
+  <tr><td colspan="2" class="filename"><pre>IntInstance.hs</pre></td></tr>
   <tr>
     <td width="50%" class="beforeafter">Before</td>
     <td width="50%" class="beforeafter">After</td>
   </tr>
   <tr>
     <td>
-      <pre><code class="language-haskell">module NotARecordSelector where
+      <pre><code class="language-haskell">module IntInstance where
 
-newtype Bar = Bar { bar :: Int }
+class SomeClass a where
 
-foo :: Bar -> Bar
-foo x = x { foo = 1 }
+instance someClass Int where
 </code></pre>
     </td>
     <td>
-      <pre><code class="language-haskell">module NotARecordSelector where
+      <pre><code class="language-haskell">module IntInstance where
 
-newtype Bar = Bar { bar :: Int }
+class SomeClass a where
 
-foo :: Bar -> Bar
-foo x = x { bar = 1 }
+instance SomeClass Int where
 </code></pre>
     </td>
   </tr>

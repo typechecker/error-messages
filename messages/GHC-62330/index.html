@@ -5,7 +5,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex">
-        <title>Identifier is not a record selector [GHC-47535] — Haskell Error Index</title>
+        <title>Underscores not allowed in float and integer literals [GHC-62330] — Haskell Error Index</title>
         <link rel="stylesheet" href="../../css/default.css" />
         <link rel="stylesheet" href="../../css/highlight.css">
         <script src="../../js/highlight.min.js"></script>
@@ -29,20 +29,21 @@
               
                 <a href="../../messages/index.html">Messages</a>&nbsp;»
               
-              Identifier is not a record selector [GHC-47535]
+              Underscores not allowed in float and integer literals [GHC-62330]
             </nav>
-            <h1>Identifier is not a record selector [GHC-47535]</h1>
+            <h1>Underscores not allowed in float and integer literals [GHC-62330]</h1>
             
 
 
-<p>Within a record update expression <code>r { selector1 = ..., ..., selectorN = ... }</code>, the selectors <code>selector1</code> … <code>selectorN</code> must be bound by a record constructor declaration.</p>
+<p>The <a href="https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/numeric_underscores.html"><code>NumericUnderscores</code> extension</a> allows underscores to be included in float and integer literals for better legibility of long numbers and is enabled by default.
+If the <code>NoNumericUnderscores</code> extension is enabled or <code>NumericUnderscores</code> is not enabled in earlier GHC versions, the inclusion of underscores in float and integer literals causes this error.</p>
 
 <h2>Examples</h2>
 <ul>
 
-<li><a href="../../messages/GHC-47535/example1/index.html">Identifier is a top-level binding, not a record selector</a></li>
+<li><a href="../../messages/GHC-62330/example1/index.html">Underscore not allowed in float literal</a></li>
 
-<li><a href="../../messages/GHC-47535/example2/index.html">Identifier is a class method, not a record selector</a></li>
+<li><a href="../../messages/GHC-62330/example2/index.html">Underscore not allowed in integer literal</a></li>
 
 </ul>
 

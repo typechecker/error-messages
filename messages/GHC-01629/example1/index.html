@@ -5,7 +5,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex">
-        <title>Identifier is a top-level binding, not a record selector — Haskell Error Index</title>
+        <title>Too many type arguments in constructor pattern — Haskell Error Index</title>
         <link rel="stylesheet" href="../../../css/default.css" />
         <link rel="stylesheet" href="../../../css/highlight.css">
         <script src="../../../js/highlight.min.js"></script>
@@ -29,46 +29,48 @@
               
                 <a href="../../../messages/index.html">Messages</a>&nbsp;»
               
-                <a href="../../../messages/GHC-47535/index.html">Identifier is not a record selector [GHC-47535]</a>&nbsp;»
+                <a href="../../../messages/GHC-01629/index.html">Too many type arguments in constructor pattern [GHC-01629]</a>&nbsp;»
               
-              Identifier is a top-level binding, not a record selector
+              Too many type arguments in constructor pattern
             </nav>
-            <h1>Identifier is a top-level binding, not a record selector</h1>
-            <p>The identifier <code>foo</code> is used as a record selector, but is never declared as such.
-Using <code>bar</code> fixes the error, since it is declared as a selector of the <code>Bar</code> record.</p>
+            <h1>Too many type arguments in constructor pattern</h1>
+            <p>The <code>@Bool</code> is too much in this example. There is nothing to bind to it, so it is not allowed to be there.</p>
 <h2 id="error-message">Error Message</h2>
-<pre><code>NotARecordSelector.hs:6:13: error: [GHC-47535]
-    • ‘foo’ is not a record selector
-    • In the expression: x {foo = 1}
-      In an equation for ‘foo’: foo x = x {foo = 1}
+<pre><code>TyArgs.hs:6:4: error: [GHC-01629]
+    • Too many type arguments in constructor pattern for ‘Just’
+      Expected no more than 1; got 2
+    • In the pattern: Just @Int @Bool x
+      In an equation for ‘f’: f (Just @Int @Bool x) = x
   |
-6 | foo x = x { foo = 1 }
-  |             ^^^</code></pre>
+6 | f (Just @Int @Bool x) = x
+  |    ^^^^^^^^^^^^^^^^^</code></pre>
 
 <table width="100%">
   
-  <tr><td colspan="2" class="filename"><pre>NotARecordSelector.hs</pre></td></tr>
+  <tr><td colspan="2" class="filename"><pre>TyArgs.hs</pre></td></tr>
   <tr>
     <td width="50%" class="beforeafter">Before</td>
     <td width="50%" class="beforeafter">After</td>
   </tr>
   <tr>
     <td>
-      <pre><code class="language-haskell">module NotARecordSelector where
+      <pre><code class="language-haskell">{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TypeApplications #-}
+module TyArgs where
 
-newtype Bar = Bar { bar :: Int }
-
-foo :: Bar -> Bar
-foo x = x { foo = 1 }
+f :: Maybe Int -> Int
+f (Just @Int @Bool x) = x
+f Nothing = 10
 </code></pre>
     </td>
     <td>
-      <pre><code class="language-haskell">module NotARecordSelector where
+      <pre><code class="language-haskell">{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TypeApplications #-}
+module TyArgs where
 
-newtype Bar = Bar { bar :: Int }
-
-foo :: Bar -> Bar
-foo x = x { bar = 1 }
+f :: Maybe Int -> Int
+f (Just @Int x) = x
+f Nothing = 10
 </code></pre>
     </td>
   </tr>

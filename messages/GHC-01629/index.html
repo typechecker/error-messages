@@ -5,7 +5,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex">
-        <title>Identifier is not a record selector [GHC-47535] — Haskell Error Index</title>
+        <title>Too many type arguments in constructor pattern [GHC-01629] — Haskell Error Index</title>
         <link rel="stylesheet" href="../../css/default.css" />
         <link rel="stylesheet" href="../../css/highlight.css">
         <script src="../../js/highlight.min.js"></script>
@@ -29,20 +29,20 @@
               
                 <a href="../../messages/index.html">Messages</a>&nbsp;»
               
-              Identifier is not a record selector [GHC-47535]
+              Too many type arguments in constructor pattern [GHC-01629]
             </nav>
-            <h1>Identifier is not a record selector [GHC-47535]</h1>
+            <h1>Too many type arguments in constructor pattern [GHC-01629]</h1>
             
 
 
-<p>Within a record update expression <code>r { selector1 = ..., ..., selectorN = ... }</code>, the selectors <code>selector1</code> … <code>selectorN</code> must be bound by a record constructor declaration.</p>
+<p>Every type application has to be “consumed” by a type variable in the
+corresponding type. Just as it is an error to pass more than one argument to <code>putStrLn</code>, it is also an error to apply more types than there are
+type variables in a type. For instance, if a type has only 1 type parameter (e.g. <code>Maybe a</code>), we can only apply 1 type argument (e.g. applying <code>@Int</code> to produce <code>Maybe Int</code>); there is no unbound type parameter present for further applications.</p>
 
 <h2>Examples</h2>
 <ul>
 
-<li><a href="../../messages/GHC-47535/example1/index.html">Identifier is a top-level binding, not a record selector</a></li>
-
-<li><a href="../../messages/GHC-47535/example2/index.html">Identifier is a class method, not a record selector</a></li>
+<li><a href="../../messages/GHC-01629/example1/index.html">Too many type arguments in constructor pattern</a></li>
 
 </ul>
 
