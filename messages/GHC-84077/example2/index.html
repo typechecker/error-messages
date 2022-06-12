@@ -5,7 +5,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex">
-        <title> — Haskell Error Index</title>
+        <title>Missing space in type application — Haskell Error Index</title>
         <link rel="stylesheet" href="../../../css/default.css" />
     </head>
     <body>
@@ -29,24 +29,17 @@
               
                 <a href="../../../messages/GHC-84077/index.html">Type Application Without Space [GHC-84077]</a>&nbsp;»
               
-              
+              Missing space in type application
             </nav>
-            <h1></h1>
-            <table>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">title: Missing space in type application</td>
-</tr>
-</tbody>
-</table>
-<p>## Error Message</p>
+            <h1>Missing space in type application</h1>
+            <h2 id="error-message">Error Message</h2>
 <pre><code>Example.hs:7:5: error:
-   @-pattern in expression context: g@Int
-   Type application syntax requires a space before '@'
- |
+    @-pattern in expression context: g@Int
+    Type application syntax requires a space before '@'
+  |
 7 | f = g@Int
- |     ^^^^^</code></pre>
-<p>## Explanation</p>
+  |     ^^^^^</code></pre>
+<h2 id="explanation">Explanation</h2>
 <p>A space is missing before the type application. The expression cannot be correctly parsed.</p>
 
 <ul>
